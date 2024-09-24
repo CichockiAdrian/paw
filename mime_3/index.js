@@ -54,21 +54,18 @@ const requestListener = (req, res) => {
             }
         });
     }
-
     else {
-        if (mime.lookup(req.url)){
-            const filePath = path.join(__dirname, `/assets/${url.parse(req.url, true).query}`);
-            // fs.readFile(filePath, 'utf8', (err, data) => {
-            //     res.writeHead(200, {'Content-Type': 'text/html'});
-            //     res.end(data);
-            // });
-            res.writeHead(200, { 'Content-Type': 'text/plain' });
-            const name = stringify(filePath);
-            res.end(name);
-        }
-        else {
-            res.writeHead(404, {'Content-Type': 'application/json'});
-            res.end('404');
+        const filePath = path.join(__dirname, 'assets', url.parse(req.url, true).pathname);
+
+        if (mime.lookup(filePath)) {
+            fs.readFile(filePath, (err,data) => {
+                const contentType = mime.lookup(filePath);
+                res.writeHead(200, { 'Content-Type': contentType });
+                res.end(data);
+            });
+        } else {
+            res.writeHead(404, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ error: 'File not found' }));
         }
     }
 };
