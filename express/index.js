@@ -51,20 +51,19 @@ app.get('/get_params',(req,res)=>{
 
     fs.writeFile(fileName, JSON.stringify(paramsArray), (err)=>{})
 })
-app.get('*',(req,res)=>{
+app.get('*', (req, res) => {
     const filePath = path.join(__dirname, 'assets', req.url);
 
-    fs.readFile(filePath,(err,data)=>{
-        if(err){
-            res.status(404).json({error:404})
-        }
-        else{
+    fs.readFile(filePath, (err, data) => {
+        if (err) {
+            res.status(404).json({ error: 404 });
+        } else {
             const contentType = mime.lookup(filePath);
             res.writeHead(200, { 'Content-Type': contentType });
-            res.send(data);
+            res.end(data);
         }
-    })
-})
+    });
+});
 
 app.listen(port, () => {
     console.log(`Strona http://localhost:${port}`)
