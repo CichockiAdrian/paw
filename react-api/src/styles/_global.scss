@@ -1,0 +1,50 @@
+@import './variables';
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: $background-color;
+  color: $text-color;
+  padding: 0 2rem;
+  margin: 0;
+}
+
+h1, h2 {
+  color: $primary-color;
+}
+
+a {
+  text-decoration: none;
+  color: $text-color;
+
+  &:hover {
+    color: $hover-color;
+  }
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+ul {
+  list-style: none;
+}
+
+button {
+  background-color: $primary-color;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $hover-color;
+  }
+}

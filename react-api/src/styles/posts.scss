@@ -1,0 +1,39 @@
+@import '../styles/variables';
+
+.post-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 20px;
+}
+
+.post-item {
+  background-color: $card-background;
+  border-radius: 8px;
+  padding: 1.5rem;
+  width: 250px;
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  }
+
+  h2 {
+    color: $primary-color;
+  }
+
+  p {
+    color: $text-color;
+    margin-bottom: 1rem;
+  }
+
+  a {
+    color: $primary-color;
+    font-weight: bold;
+
+    &:hover {
+      color: $hover-color;
+    }
+  }
+}

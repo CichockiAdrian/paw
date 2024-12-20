@@ -1,0 +1,26 @@
+@import '../styles/variables';
+
+.post-details {
+  background-color: $card-background;
+  padding: 2rem;
+  border-radius: 10px;
+  margin-top: 2rem;
+}
+
+.post-details h1 {
+  color: $primary-color;
+}
+
+.post-details p {
+  color: $text-color;
+  margin: 1rem 0;
+}
+
+.post-author {
+  margin-top: 2rem;
+  color: $text-color;
+
+  h2 {
+    color: $primary-color;
+  }
+}

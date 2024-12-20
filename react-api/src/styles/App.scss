@@ -1,0 +1,24 @@
+@import './global';
+
+.App {
+  display: flex;
+  min-height: 100vh;
+}
+
+header {
+  background-color: $card-background;
+  padding: 1rem;
+  text-align: center;
+}
+
+main {
+  flex: 1;
+  padding: 2rem;
+}
+
+footer {
+  background-color: $card-background;
+  padding: 1rem;
+  text-align: center;
+  color: $text-color;
+}
