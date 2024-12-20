@@ -1,0 +1,23 @@
+@import 'variables';
+body {
+  font-family: $font-family;
+  margin: 0;
+  background-color: $background-color;
+  color: $text-color;
+  line-height: 1.6;
+  padding: 20px;
+}
+
+a {
+  text-decoration: none;
+  color: $primary-color;
+
+  &:hover {
+    color: darken($primary-color, 10%);
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $heading-font-family;
+  margin: 0;
+}
