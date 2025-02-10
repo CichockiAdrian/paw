@@ -41,5 +41,4 @@ function PostDetails() {
         </div>
     );
 }
-
 export default PostDetails;
