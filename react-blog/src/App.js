@@ -8,25 +8,22 @@ import './styles/home.scss';
 import './styles/post.scss';
 import './styles/categories.scss';
 
-
 const App = () => {
-  return (
-      <Router>
-        <nav>
-          <ul>
-            <li><Link to="/">Home</Link></li>
-            <li><Link to="/post">Post</Link></li>
-            <li><Link to="/category">Category</Link></li>
-          </ul>
-        </nav>
+    return (
+        <Router>
+            <nav>
+                <ul>
+                    <li><Link to="/">Home</Link></li>
+                </ul>
+            </nav>
 
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/post" element={<Post/>} />
-          <Route path="/contact" element={<Category/>} />
-        </Routes>
-      </Router>
-  );
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/post/:id" element={<Post />} />
+                <Route path="/category" element={<Category />} />
+            </Routes>
+        </Router>
+    );
 };
 
 export default App;
