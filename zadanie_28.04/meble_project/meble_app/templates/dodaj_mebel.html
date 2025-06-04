@@ -1,0 +1,110 @@
+{% extends 'meble/base.html' %}
+
+{% block title %}Dodaj Mebel - Sklep Meblowy{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h2><i class="fas fa-plus"></i> Dodaj nowy mebel</h2>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="{{ form.nazwa.id_for_label }}" class="form-label">{{ form.nazwa.label }}</label>
+                                {{ form.nazwa }}
+                                {% if form.nazwa.errors %}
+                                    <div class="text-danger">{{ form.nazwa.errors }}</div>
+                                {% endif %}
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="{{ form.kategoria.id_for_label }}" class="form-label">{{ form.kategoria.label }}</label>
+                                {{ form.kategoria }}
+                                {% if form.kategoria.errors %}
+                                    <div class="text-danger">{{ form.kategoria.errors }}</div>
+                                {% endif %}
+                                <small class="form-text text-muted">
+                                    <a href="{% url 'dodaj_kategorie' %}">Dodaj nową kategorię</a>
+                                </small>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="{{ form.material.id_for_label }}" class="form-label">{{ form.material.label }}</label>
+                                {{ form.material }}
+                                {% if form.material.errors %}
+                                    <div class="text-danger">{{ form.material.errors }}</div>
+                                {% endif %}
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="{{ form.cena.id_for_label }}" class="form-label">{{ form.cena.label }}</label>
+                                {{ form.cena }}
+                                {% if form.cena.errors %}
+                                    <div class="text-danger">{{ form.cena.errors }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <h5>Wymiary</h5>
+                            <div class="mb-3">
+                                <label for="{{ form.wysokosc.id_for_label }}" class="form-label">{{ form.wysokosc.label }}</label>
+                                {{ form.wysokosc }}
+                                {% if form.wysokosc.errors %}
+                                    <div class="text-danger">{{ form.wysokosc.errors }}</div>
+                                {% endif %}
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="{{ form.szerokosc.id_for_label }}" class="form-label">{{ form.szerokosc.label }}</label>
+                                {{ form.szerokosc }}
+                                {% if form.szerokosc.errors %}
+                                    <div class="text-danger">{{ form.szerokosc.errors }}</div>
+                                {% endif %}
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="{{ form.glebokosc.id_for_label }}" class="form-label">{{ form.glebokosc.label }}</label>
+                                {{ form.glebokosc }}
+                                {% if form.glebokosc.errors %}
+                                    <div class="text-danger">{{ form.glebokosc.errors }}</div>
+                                {% endif %}
+                            </div>
+
+                            <div class="form-check mb-3">
+                                {{ form.dostepny }}
+                                <label class="form-check-label" for="{{ form.dostepny.id_for_label }}">
+                                    {{ form.dostepny.label }}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="{{ form.opis.id_for_label }}" class="form-label">{{ form.opis.label }}</label>
+                        {{ form.opis }}
+                        {% if form.opis.errors %}
+                            <div class="text-danger">{{ form.opis.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Zapisz mebel
+                        </button>
+                        <a href="{% url 'lista_mebli' %}" class="btn btn-secondary">
+                            <i class="fas fa-times"></i> Anuluj
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

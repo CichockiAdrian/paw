@@ -1,0 +1,85 @@
+{% extends 'meble/base.html' %}
+
+{% block title %}Lista Mebli - Sklep Meblowy{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-filter"></i> Filtry</h5>
+            </div>
+            <div class="card-body">
+                <form method="get">
+                    <div class="mb-3">
+                        <label class="form-label">Kategoria:</label>
+                        <select name="kategoria" class="form-select" onchange="this.form.submit()">
+                            <option value="">Wszystkie kategorie</option>
+                            {% for kategoria in kategorie %}
+                                <option value="{{ kategoria.id }}"
+                                    {% if kategoria.id == wybrana_kategoria %}selected{% endif %}>
+                                    {{ kategoria.nazwa }} ({{ kategoria.liczba_mebli }})
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="dostepne" value="1"
+                            {% if pokazuj_dostepne %}checked{% endif %} onchange="this.form.submit()">
+                        <label class="form-check-label">Tylko dostępne</label>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-9">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1><i class="fas fa-couch"></i> Nasze Meble</h1>
+            <a href="{% url 'dodaj_mebel' %}" class="btn btn-primary">
+                <i class="fas fa-plus"></i> Dodaj nowy mebel
+            </a>
+        </div>
+
+        {% if meble %}
+            <div class="row">
+                {% for mebel in meble %}
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ mebel.nazwa }}</h5>
+                                <p class="card-text">
+                                    <small class="text-muted">{{ mebel.kategoria.nazwa }}</small><br>
+                                    <strong>{{ mebel.cena }} PLN</strong><br>
+                                    <i class="fas fa-cube"></i> {{ mebel.wymiary }}<br>
+                                    <i class="fas fa-hammer"></i> {{ mebel.get_material_display }}
+                                </p>
+                                {% if mebel.opis %}
+                                    <p class="card-text">{{ mebel.opis|truncatewords:15 }}</p>
+                                {% endif %}
+                                <div class="mt-auto">
+                                    {% if mebel.dostepny %}
+                                        <span class="badge bg-success mb-2">Dostępny</span>
+                                    {% else %}
+                                        <span class="badge bg-danger mb-2">Niedostępny</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <a href="{% url 'szczegoly_mebla' mebel.pk %}" class="btn btn-primary btn-sm">
+                                    <i class="fas fa-eye"></i> Zobacz szczegóły
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="alert alert-info">
+                <i class="fas fa-info-circle"></i>
+                Nie znaleziono mebli spełniających kryteria wyszukiwania.
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

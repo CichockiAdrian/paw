@@ -1,0 +1,119 @@
+{% extends 'meble/base.html' %}
+
+{% block title %}{{ mebel.nazwa }} - Sklep Meblowy{% endblock %}
+
+{% block content %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'lista_mebli' %}">Meble</a></li>
+        <li class="breadcrumb-item active">{{ mebel.nazwa }}</li>
+    </ol>
+</nav>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h1><i class="fas fa-couch"></i> {{ mebel.nazwa }}</h1>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5>Informacje podstawowe</h5>
+                        <table class="table table-borderless">
+                            <tr>
+                                <td><strong>Kategoria:</strong></td>
+                                <td>{{ mebel.kategoria.nazwa }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Materiał:</strong></td>
+                                <td>{{ mebel.get_material_display }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Cena:</strong></td>
+                                <td><strong class="text-success">{{ mebel.cena }} PLN</strong></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Status:</strong></td>
+                                <td>
+                                    {% if mebel.dostepny %}
+                                        <span class="badge bg-success">Dostępny</span>
+                                    {% else %}
+                                        <span class="badge bg-danger">Niedostępny</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-md-6">
+                        <h5>Wymiary</h5>
+                        <table class="table table-borderless">
+                            <tr>
+                                <td><strong>Wysokość:</strong></td>
+                                <td>{{ mebel.wysokosc }} cm</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Szerokość:</strong></td>
+                                <td>{{ mebel.szerokosc }} cm</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Głębokość:</strong></td>
+                                <td>{{ mebel.glebokosc }} cm</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Wymiary:</strong></td>
+                                <td><strong>{{ mebel.wymiary }}</strong></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                {% if mebel.opis %}
+                    <h5 class="mt-4">Opis</h5>
+                    <p>{{ mebel.opis|linebreaks }}</p>
+                {% endif %}
+
+                <div class="mt-4">
+                    <small class="text-muted">
+                        <i class="fas fa-calendar"></i> Dodano: {{ mebel.data_dodania|date:"d.m.Y H:i" }}
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        {% if podobne_meble %}
+            <div class="card">
+                <div class="card-header">
+                    <h5><i class="fas fa-similar"></i> Podobne meble</h5>
+                </div>
+                <div class="card-body">
+                    {% for podobny in podobne_meble %}
+                        <div class="mb-3 pb-2 border-bottom">
+                            <h6><a href="{% url 'szczegoly_mebla' podobny.pk %}">{{ podobny.nazwa }}</a></h6>
+                            <small class="text-muted">
+                                {{ podobny.cena }} PLN | {{ podobny.get_material_display }}
+                            </small>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+
+        <div class="card mt-3">
+            <div class="card-header">
+                <h5><i class="fas fa-tools"></i> Akcje</h5>
+            </div>
+            <div class="card-body">
+                <a href="/admin/meble/mebel/{{ mebel.pk }}/change/" class="btn btn-warning btn-sm mb-2">
+                    <i class="fas fa-edit"></i> Edytuj w panelu admin
+                </a><br>
+                <a href="{% url 'lista_mebli' %}" class="btn btn-secondary btn-sm">
+                    <i class="fas fa-arrow-left"></i> Powrót do listy
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
